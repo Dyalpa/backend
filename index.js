@@ -45,13 +45,6 @@ app.put('/cto/:id', (req, res) => {
   });
 });
 
-app.delete('/cto/:id', (req, res) => {
-  connection.query('DELETE FROM cto WHERE id = ?', [req.params.id], (error, results) => {
-    if (error) throw error;
-    res.status(204).send();
-  });
-});
-
 // Ruta para actualizar la dirección de una CTO
 app.put('/cto/:id/direccion', (req, res) => {
   const ctoId = req.params.id;
@@ -75,31 +68,7 @@ app.get('/abonado', (req, res) => {
   });
 });
 
-// Rutas para la tabla 'abonado'
-app.post('/abonado', (req, res) => {
-  const newData = req.body;
-  connection.query('INSERT INTO abonado SET ?', newData, (error, results) => {
-    if (error) throw error;
-    res.status(201).json({ id: results.insertId });
-  });
-});
-
-app.put('/abonado/:id', (req, res) => {
-  const updatedData = req.body;
-  connection.query('UPDATE abonado SET ? WHERE id = ?', [updatedData, req.params.id], (error, results) => {
-    if (error) throw error;
-    res.status(200).json(results);
-  });
-});
-
-app.delete('/abonado/:id', (req, res) => {
-  connection.query('DELETE FROM abonado WHERE id = ?', [req.params.id], (error, results) => {
-    if (error) throw error;
-    res.status(204).send();
-  });
-});
-
-// Ruta para obtener datos de abonado filtrados por `cai`
+// Ruta para obtener datos de cai filtrados por `cai`
 app.get('/cai', (req, res) => {
   const cai = req.query.cai;
   let query = 'SELECT * FROM cai';
@@ -109,30 +78,6 @@ app.get('/cai', (req, res) => {
   connection.query(query, (error, results) => {
     if (error) throw error;
     res.json(results);
-  });
-});
-
-// Rutas para la tabla 'cai'
-app.post('/cai', (req, res) => {
-  const newData = req.body;
-  connection.query('INSERT INTO cai SET ?', newData, (error, results) => {
-    if (error) throw error;
-    res.status(201).json({ id: results.insertId });
-  });
-});
-
-app.put('/cai/:id', (req, res) => {
-  const updatedData = req.body;
-  connection.query('UPDATE cai SET ? WHERE id = ?', [updatedData, req.params.id], (error, results) => {
-    if (error) throw error;
-    res.status(200).json(results);
-  });
-});
-
-app.delete('/cai/:id', (req, res) => {
-  connection.query('DELETE FROM cai WHERE id = ?', [req.params.id], (error, results) => {
-    if (error) throw error;
-    res.status(204).send();
   });
 });
 
@@ -148,32 +93,6 @@ app.get('/cliente', (req, res) => {
     res.json(results);
   });
 });
-
-
-// Rutas para la tabla 'cliente'
-app.post('/cliente', (req, res) => {
-  const newData = req.body;
-  connection.query('INSERT INTO cliente SET ?', newData, (error, results) => {
-    if (error) throw error;
-    res.status(201).json({ id: results.insertId });
-  });
-});
-
-app.put('/cliente/:id', (req, res) => {
-  const updatedData = req.body;
-  connection.query('UPDATE cliente SET ? WHERE id = ?', [updatedData, req.params.id], (error, results) => {
-    if (error) throw error;
-    res.status(200).json(results);
-  });
-});
-
-app.delete('/cliente/:id', (req, res) => {
-  connection.query('DELETE FROM cliente WHERE id = ?', [req.params.id], (error, results) => {
-    if (error) throw error;
-    res.status(204).send();
-  });
-});
-
 
 // Ruta para obtener datos del historial con múltiples filtros
 app.get('/historial', (req, res) => {
@@ -256,37 +175,6 @@ app.get('/spliter/spliter-CTO', (req, res) => {
   });
 });
 
-
-
-
-// Rutas para operaciones CRUD de la tabla 'historial'
-app.post('/historial', (req, res) => {
-  const newData = req.body;
-  connection.query('INSERT INTO historial SET ?', newData, (error, results) => {
-    if (error) throw error;
-    res.status(201).json({ id: results.insertId });
-  });
-});
-
-app.put('/historial/:id', (req, res) => {
-  const updatedData = req.body;
-  connection.query('UPDATE historial SET ? WHERE id = ?', [updatedData, req.params.id], (error, results) => {
-    if (error) throw error;
-    res.status(200).json(results);
-  });
-});
-
-app.delete('/historial/:id', (req, res) => {
-  connection.query('DELETE FROM historial WHERE id = ?', [req.params.id], (error, results) => {
-    if (error) throw error;
-    res.status(204).send();
-  });
-});
-
-
-
-
-
 // Ruta para obtener datos de tecnicos filtrado por `cedula`
 app.get('/tecnico', (req, res) => {
   const Cedula = req.query.Cedula; // Asegúrate de que 'cedula_cliente' sea la variable utilizada
@@ -297,31 +185,6 @@ app.get('/tecnico', (req, res) => {
   connection.query(query, (error, results) => {
     if (error) throw error;
     res.json(results);
-  });
-});
-
-
-// Rutas para la tabla 'tecnico'
-app.post('/tecnico', (req, res) => {
-  const newData = req.body;
-  connection.query('INSERT INTO tecnico SET ?', newData, (error, results) => {
-    if (error) throw error;
-    res.status(201).json({ id: results.insertId });
-  });
-});
-
-app.put('/tecnico/:id', (req, res) => {
-  const updatedData = req.body;
-  connection.query('UPDATE tecnico SET ? WHERE id = ?', [updatedData, req.params.id], (error, results) => {
-    if (error) throw error;
-    res.status(200).json(results);
-  });
-});
-
-app.delete('/tecnico/:id', (req, res) => {
-  connection.query('DELETE FROM tecnico WHERE id = ?', [req.params.id], (error, results) => {
-    if (error) throw error;
-    res.status(204).send();
   });
 });
 
@@ -338,59 +201,11 @@ app.get('/spliter', (req, res) => {
   });
 });
 
-
-// Rutas para la tabla 'spliter'
-app.post('/spliter', (req, res) => {
-  const newData = req.body;
-  connection.query('INSERT INTO spliter SET ?', newData, (error, results) => {
-    if (error) throw error;
-    res.status(201).json({ id: results.insertId });
-  });
-});
-
-app.put('/spiter/:id', (req, res) => {
-  const updatedData = req.body;
-  connection.query('UPDATE spliter SET ? WHERE id = ?', [updatedData, req.params.id], (error, results) => {
-    if (error) throw error;
-    res.status(200).json(results);
-  });
-});
-
-app.delete('/spliter/:id', (req, res) => {
-  connection.query('DELETE FROM spliter WHERE id = ?', [req.params.id], (error, results) => {
-    if (error) throw error;
-    res.status(204).send();
-  });
-});
-
 // Rutas para las otras tablas...
 app.get('/cai', (req, res) => {
   connection.query('SELECT * FROM cai', (error, results) => {
     if (error) throw error;
     res.json(results);
-  });
-});
-
-app.post('/cai', (req, res) => {
-  const newData = req.body;
-  connection.query('INSERT INTO cai SET ?', newData, (error, results) => {
-    if (error) throw error;
-    res.status(201).json({ id: results.insertId });
-  });
-});
-
-app.put('/cai/:id', (req, res) => {
-  const updatedData = req.body;
-  connection.query('UPDATE cai SET ? WHERE id = ?', [updatedData, req.params.id], (error, results) => {
-    if (error) throw error;
-    res.status(200).json(results);
-  });
-});
-
-app.delete('/cai/:id', (req, res) => {
-  connection.query('DELETE FROM cai WHERE id = ?', [req.params.id], (error, results) => {
-    if (error) throw error;
-    res.status(204).send();
   });
 });
 
@@ -401,56 +216,10 @@ app.get('/cliente', (req, res) => {
   });
 });
 
-app.post('/cliente', (req, res) => {
-  const newData = req.body;
-  connection.query('INSERT INTO cliente SET ?', newData, (error, results) => {
-    if (error) throw error;
-    res.status(201).json({ id: results.insertId });
-  });
-});
-
-app.put('/cliente/:id', (req, res) => {
-  const updatedData = req.body;
-  connection.query('UPDATE cliente SET ? WHERE id = ?', [updatedData, req.params.id], (error, results) => {
-    if (error) throw error;
-    res.status(200).json(results);
-  });
-});
-
-app.delete('/cliente/:id', (req, res) => {
-  connection.query('DELETE FROM cliente WHERE id = ?', [req.params.id], (error, results) => {
-    if (error) throw error;
-    res.status(204).send();
-  });
-});
-
 app.get('/tecnico', (req, res) => {
   connection.query('SELECT * FROM tecnico', (error, results) => {
     if (error) throw error;
     res.json(results);
-  });
-});
-
-app.post('/tecnico', (req, res) => {
-  const newData = req.body;
-  connection.query('INSERT INTO tecnico SET ?', newData, (error, results) => {
-    if (error) throw error;
-    res.status(201).json({ id: results.insertId });
-  });
-});
-
-app.put('/tecnico/:id', (req, res) => {
-  const updatedData = req.body;
-  connection.query('UPDATE tecnico SET ? WHERE id = ?', [updatedData, req.params.id], (error, results) => {
-    if (error) throw error;
-    res.status(200).json(results);
-  });
-});
-
-app.delete('/tecnico/:id', (req, res) => {
-  connection.query('DELETE FROM tecnico WHERE id = ?', [req.params.id], (error, results) => {
-    if (error) throw error;
-    res.status(204).send();
   });
 });
 
